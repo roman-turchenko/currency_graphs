@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Currency graphs</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <link href="./style.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<div class="controls">
+    <span>
+        Currency:
+        <select name="currency" id="currency">
+            <option value="R01235">US Dollar</option>
+            <option value="R01239">Euro</option>
+            <option value="R01035">British Pound Sterling</option>
+            <option value="R01820">Japanese Yen</option>
+            <option value="R01775">Swiss Franc</option>
+            <option value="R01375">China Yuan</option>
+        </select>
+    </span>
+    <span>
+        Period: <input type="date" id="startDate" value=""/>&nbsp;&mdash;&nbsp;<input type="date" id="endDate" value=""/>
+    </span>
+    <span>
+        Group:
+        <button id="dayGroup">Day</button>
+        <button id="monthGroup">Week</button>
+        <button id="weekGroup">Month</button>
+    </span>
+</div>
+
+<script>
+
+
+    $(function () {
+        $('#container').highcharts({
+            title: {
+                text: 'График по котировкам рубля относительно 6 мировых резервных валют',
+                x: -20 //center
+            },
+            subtitle: {
+                text: 'Source: www.cbr.ru',
+                x: -20
+            },
+            xAxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            },
+            yAxis: {
+                title: {
+                    text: 'RUR'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                valueSuffix: 'RUR'
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            series: [{
+                name: 'USD',
+                data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+            }, {
+                name: 'EUR',
+                data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
+            }, {
+                name: 'GBP',
+                data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
+            }, {
+                name: 'JPY',
+                data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+            }, {
+                name: 'CHF',
+                data: [10.9, 14.2, 15.7, 18.5, 1.9, 5.2, 7.0, 6.6, 4.2, 1.3, 16.6, 14.8]
+            }, {
+                name: 'CNY',
+                data: [14.9, 12.2, 18.7, 11.5, 21.9, 8.2, 9.0, 16.6, 14.2, 11.3, 6.6, 4.8]
+            }]
+        });
+    });
+</script>
+</body>
+</html>
