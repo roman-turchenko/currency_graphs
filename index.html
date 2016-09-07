@@ -8,7 +8,9 @@
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
-    <script src="main.js"></script>
+
+    <script src="js/datePicker.js"></script>
+    <script src="js/main.js"></script>
     <link href="./style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
@@ -26,13 +28,12 @@
         </select>
     </span>
     <span>
-        Period: <input type="text" id="startDate" value="01/09/2016"/>&nbsp;&mdash;&nbsp;<input type="text" id="endDate" value="07/09/2016"/>
+        Period: <input type="text" id="startDate" value=""/>&nbsp;&mdash;&nbsp;<input type="text" id="endDate" value=""/>
     </span>
     <span>
-        Group:
-        <button id="dayGroup">Day</button>
-        <button id="monthGroup">Week</button>
-        <button id="weekGroup">Month</button>
+        <label><input type="radio" name="group" class="group" id="perDay" checked value="perDay"/>Day<label>
+        <label><input type="radio" name="group" class="group" id="perWeek" value="perWeek"/>Week<label>
+        <label><input type="radio" name="group" class="group" id="perMonth" value="perMonth"/>Month<label>
     </span>
 </div>
 </body>
