@@ -26,7 +26,7 @@ var Data = function(dateFunction){
 
 Data.prototype = {
 
-    group: function(currentDate, currencyValue, isLastItaration){
+    group: function(currentDate, currencyValue, isLastIteration){
 
         var previousDateValue = this.dateFunction(this.previousDate),
             currentDateValue  = this.dateFunction(currentDate);
@@ -40,13 +40,13 @@ Data.prototype = {
             this.counter = 1;
 
             // if last iteration and only one item
-            if (isLastItaration){
+            if (isLastIteration){
                 this.setX(currentDateValue);
                 this.setY(this.summ / this.counter);
             }
         }
         // last iteration, and number of items more then one
-        else if (isLastItaration){
+        else if (isLastIteration){
 
             this.summ += currencyValue;
             ++this.counter;
@@ -103,10 +103,10 @@ function requestData(){
                 for (var i = 0; i < data.Record.length; i++){
 
                     var dateArray = data.Record[i]['@attributes'].Date.split(".");
-                        dateEnFormat = dateArray[1]+'.'+dateArray[0]+'.'+dateArray[2];
+                    var dateEnFormat = dateArray[1]+'.'+dateArray[0]+'.'+dateArray[2];
 
                     var recordDate = new Date(dateEnFormat),
-                        isLastItaration = (i == (data.Record.length - 1)),
+                        isLastIteration = (i == (data.Record.length - 1)),
                         currencyValue = parseFloat(data.Record[i].Value.replace(",", "."));
 
                     // per day
@@ -114,10 +114,10 @@ function requestData(){
                     graphData.perDay.setY(currencyValue);
 
                     // group data per week
-                    graphData.perWeek.group(recordDate, currencyValue, isLastItaration);
+                    graphData.perWeek.group(recordDate, currencyValue, isLastIteration);
 
                     //group data per day
-                    graphData.perMonth.group(recordDate, currencyValue, isLastItaration);
+                    graphData.perMonth.group(recordDate, currencyValue, isLastIteration);
                 }
 
                 drawGraph(graphData[group].get());
