@@ -6,11 +6,7 @@ Date.prototype.getWeek = function() {
     return Math.ceil((((this - onejan) / 86400000) + onejan.getDay()) / 7);
 }
 
-var graphData = {
-        perDay: {x:[], y:[]},
-        perWeek: {x: [], y:[]},
-        perMonth: {x: [], y:[]}
-    },
+var graphData = {},
     group = "perDay";
 
 var Data = function(dateFunction){
@@ -86,19 +82,25 @@ function requestData(){
         startDate = $("#startDate").val(),
         endDate = $("#endDate").val();
 
+        // data objects init
+        graphData = {
+            perDay: new Data(),
+            perWeek: new Data("getWeek"),
+            perMonth: new Data("getMonth")
+        };
+
     if (currencyCode == "" || startDate == "" || endDate == ""){
         alert("currencyCode, startDate and endDate shouldn't be empty");
     }
     else{
 
-        var apiRequest = "/api/?currencyCode=" + currencyCode + "&startDate=" + startDate + "&endDate=" + endDate;
+        var apiRequest = "./api/?currencyCode=" + currencyCode + "&startDate=" + startDate + "&endDate=" + endDate;
 
         $.get(apiRequest, function(data){
 
-            if (data.Record.length > 0){
+            if (typeof data.Record !== 'undefined' && data.Record.length > 0){
 
                 for (var i = 0; i < data.Record.length; i++){
-
 
                     var dateArray = data.Record[i]['@attributes'].Date.split(".");
                         dateEnFormat = dateArray[1]+'.'+dateArray[0]+'.'+dateArray[2];
@@ -106,13 +108,6 @@ function requestData(){
                     var recordDate = new Date(dateEnFormat),
                         isLastItaration = (i == (data.Record.length - 1)),
                         currencyValue = parseFloat(data.Record[i].Value.replace(",", "."));
-
-                    // data object init
-                    if (i == 0){
-                        graphData.perDay   = new Data();
-                        graphData.perWeek  = new Data("getWeek");
-                        graphData.perMonth = new Data("getMonth");
-                    }
 
                     // per day
                     graphData.perDay.setX(data.Record[i]['@attributes'].Date);

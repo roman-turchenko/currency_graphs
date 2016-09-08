@@ -5,10 +5,9 @@
 body {
   min-width: 1000px;
 }
-div.container {
+div#container {
   min-width: 310px;
   height: 400px;
-  margin: 0 auto;
 }
 div.controls {
   text-align: center;
